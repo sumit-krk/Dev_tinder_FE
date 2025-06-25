@@ -8,7 +8,6 @@ const NavBar = () => {
     const user=useSelector((store) => store?.user);
     const dispatch=useDispatch();
     const navigate=useNavigate();
-    console.log("user", user)
     const handleLogout=async()=>{
         try{
             const res=await axios.post(BASE_URL+"/logout", {}, {withCredentials:true});
@@ -28,13 +27,13 @@ const NavBar = () => {
                 <Link to="/" className="btn btn-ghost text-xl">Dev Tinder</Link>
             </div>
             <div className="flex gap-2">
-                <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
+                {/* <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" /> */}
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
                             <img
                                 alt="Tailwind CSS Navbar component"
-                                src={user?.data?.photoUrl || ""} />
+                                src={user?.data?.photoUrl || user?.photoUrl || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2TgOv9CMmsUzYKCcLGWPvqcpUk6HXp2mnww&s"} />
                         </div>
                     </div>
                     <ul
@@ -46,7 +45,16 @@ const NavBar = () => {
                                 <span className="badge">New</span>
                             </Link>
                         </li>
-                        <li><a>Settings</a></li>
+                        <li>
+                            <Link to="/connections" className="justify-between">
+                                Connections
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/requests" className="justify-between">
+                                 Request
+                            </Link>
+                        </li>
                         <li><a onClick={handleLogout}>Logout</a></li>
                     </ul>
                 </div>

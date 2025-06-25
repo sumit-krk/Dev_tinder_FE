@@ -9,6 +9,7 @@ const Feed = () => {
     const dispatch = useDispatch();
     const feed = useSelector((state) => state.feedState);
     const getFeed = async () => {
+        if(feed) return
         try {
             const res = await axios.get(BASE_URL + "/feed", {
                 withCredentials: true
@@ -22,11 +23,11 @@ const Feed = () => {
         getFeed();
     }, [])
     return (
-        feed && (
+        feed?.length>0 ? (
             <div className="flex justify-center my-10">
               <UserCard user={feed[0]} />
             </div>
-          )
+          ) : <div>No Feed Data Available.</div>
     )
        
 }
